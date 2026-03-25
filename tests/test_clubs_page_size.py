@@ -1,4 +1,7 @@
 import requests
+from jsonschema import validate
+
+from shemas.response_shema import status_response
 
 
 def test_clubs_page_size():
@@ -15,6 +18,7 @@ def test_clubs_page_size():
     assert response.status_code == 200
 
     body = response.json()
+    validate(body, schema=status_response)
     print(f"Количество элементов в results: {len(body['results'])}")
     print(f"Всего записей (count): {body['count']}")
 
